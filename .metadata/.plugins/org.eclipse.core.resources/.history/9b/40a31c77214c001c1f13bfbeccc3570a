@@ -1,0 +1,30 @@
+package kr.member.dao;
+
+
+
+	
+	import java.util.Map;
+
+
+	import kr.member.domain.MemberVO;
+
+
+public class MemberDAOImpl implements MemberDAO {
+
+		//사용자 정보 등록
+		@Override
+		public void mbrInfoRegister(MemberVO vo) throws Exception {
+			sql.insert(namespace + ".mbrInfoRegister", vo);
+		}
+		//사용자 사진 등록
+		@Override
+		public void mbrPhotoRegister(Map<String, Object> map) throws Exception {
+			sql.update(namespace + ".mbrPhotoRegister", map);
+		}
+
+		//사용자 정보 보기
+		@Override
+		public BoardVO mbrInfoView(String userid) throws Exception {
+			return sql.selectOne(namespace + ".mbrInfoView", userid); 
+		}
+}

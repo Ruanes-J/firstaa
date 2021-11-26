@@ -1,0 +1,112 @@
+1637631395927	Rename package 'com.borad.controller'
+1637634591863	Rename compilation unit 'BoardVO.java'
+1637635893455	Copy compilation units
+1637635897886	Delete elements
+1637635912528	Copy compilation units
+1637637865985	Rename resource 'boardMapper.xml'
+1637638382245	Rename resource 'board'
+1637644025175	Rename compilation unit 'BoardService.java'
+1637644034100	Rename type 'BoardServiceImpl'
+1637644383794	Rename compilation unit 'intranetService.java'
+1637644388185	Rename type 'intranetServiceImpl'
+1637644652252	Copy compilation unit
+1637644664279	Move compilation units
+1637644672161	Copy compilation unit
+1637644674753	Copy compilation units
+1637644897234	Rename resource 'IntranetMapper.xml'
+1637649989872	Rename type 'IntranetServiceImpl'
+1637649995602	Rename type 'IntranetService'
+1637652512369	Rename compilation unit 'Snippet.java'
+1637652525478	Delete element
+1637652531049	Move compilation unit
+1637653275923	Rename resource 'com.board.domain.Page.java'
+1637658617431	Rename package 'com.borad.controller'
+1637712527313	Delete element
+1637726070308	Move source folder
+1637737599917	Copy file
+1637741472258	Rename resource 'idFound.jsp'
+1637741565638	Copy file
+1637800728812	Rename package 'kr.Intranet.controller'
+1637800734562	Rename package 'kr.Intranet.domain'
+1637800740838	Rename package 'kr.Intranet.service'
+1637800744481	Rename package 'kr.Intranet.dao'
+1637800765182	Rename type 'IntranetController'
+1637800779361	Rename type 'IntranetServiceImpl'
+1637800789843	Rename type 'IntranetService'
+1637800794810	Rename type 'IntranetVO'
+1637800799225	Rename type 'IntranetDAOImpl'
+1637800804468	Rename type 'IntranetDAO'
+1637800942817	Copy folder
+1637800948346	Copy folder
+1637800953111	Rename resource 'Member'
+1637800959381	Rename resource 'member'
+1637800961727	Copy folder
+1637800964204	Delete element
+1637800986123	Copy folder
+1637800991629	Copy folder
+1637801098782	Copy packages
+1637801115241	Rename package 'kr.member.domain.copy'
+1637801122122	Rename package 'kr.member.controller.copy'
+1637801145591	Rename package 'kr.member.service.copy'
+1637801162462	Rename package 'kr.member.service'
+1637801168379	Rename package 'kr.member.domain'
+1637801172254	Rename package 'kr.member.dao'
+1637801176163	Rename package 'kr.member.controller'
+1637801180969	Rename package 'kr.board.service'
+1637801184378	Rename package 'kr.board.domain'
+1637801187800	Rename package 'kr.board.dao'
+1637801191139	Rename package 'kr.board.controller'
+1637801206038	Copy packages
+1637801224401	Rename package 'kr.portal.board.controller.copy'
+1637801229493	Rename package 'kr.portal.board.service.copy'
+1637801233754	Rename package 'kr.portal.board.domain.copy'
+1637801241129	Rename package 'kr.portal.board.dao.copy'
+1637801243843	Rename package 'kr.portal.schedule.domain.copy'
+1637801246617	Rename package 'kr.portal.schedule.service.copy'
+1637801272452	Copy packages
+1637801282280	Rename package 'kr.portal.schedule.service.copy'
+1637801290097	Rename package 'kr.portal.schedule.domain.copy'
+1637801296247	Rename package 'kr.portal.schedule.controller.copy'
+1637801301445	Rename package 'kr.portal.schedule.dao.copy'
+1637801575068	Copy compilation unit
+1637804837737	Rename type 'MemberController'
+1637804843427	Rename type 'MemberDAO'
+1637804847056	Rename type 'MemberDAOImpl'
+1637804851219	Rename type 'MemberVO'
+1637804855012	Rename type 'MemberService'
+1637804858245	Rename type 'MemberServiceImpl'
+1637805553902	Copy file
+1637805561547	Copy file
+1637805571627	Copy file
+1637807502745	Copy compilation unit
+1637807506891	Delete element
+1637807511082	Copy compilation unit
+1637807513306	Delete element
+1637807528181	Rename type 'MemberController'
+1637807530804	Copy compilation unit
+1637807533693	Delete element
+1637807542871	Rename type 'MemberController'
+1637807544643	Copy compilation unit
+1637807547398	Delete element
+1637807654471	Delete elements
+1637807772068	Delete element
+1637818339441	Rename type 'portalController'
+1637818370217	Rename type 'portalcontroller'
+1637820592751	Copy package
+1637820620440	Rename package 'kr.portal.edu.dao'
+1637820627616	Rename package 'kr.portal.board.dao'
+1637820632576	Rename package 'kr.portal.board.domain'
+1637820638224	Rename package 'kr.portal.board.service'
+1637820645716	Rename package 'kr.portal.edu.domain'
+1637820650563	Rename package 'kr.portal.edu.service'
+1637820654511	Rename package 'kr.portal.member.dao'
+1637820659576	Rename package 'kr.portal.member.domain'
+1637820663315	Rename package 'kr.portal.member.service'
+1637820667264	Rename package 'kr.portal.schedule.dao'
+1637820672703	Rename package 'kr.portal.schedule.service'
+1637820676318	Rename package 'kr.portal.schedule.domain'
+1637820688665	Delete element
+1637820694054	Rename type 'portalController'
+1637820704319	Copy package
+1637820711374	Copy package
+1637820724344	Copy package

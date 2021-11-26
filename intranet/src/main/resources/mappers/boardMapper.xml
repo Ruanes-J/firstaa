@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.board.mappers.board">
+<!-- 게시물 작성 -->
+<insert id="write" parameterType="kr.board.domain.BoardVO">
+ insert into
+  tbl_board(userid, title, content, writer)
+   values(#{userid}, #{title}, #{content}, #{writer})
+</insert>
+
+<!-- 게시물 목록 보기 -->
+<select id="listPage" parameterType="hashMap" resultType="kr.board.domain.BoardVO">
+   SELECT @seq:=@seq+1 as seq,bno,title,writer,regDate,viewCnt FROM (select @seq:=0) a, tbl_board b 
+		<if test='searchType.equals("title")'>
+			where title like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where title like concat('%', #{keyword}, '%') or
+				content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where writer like concat('%', #{keyword}, '%')
+		</if>
+   
+   	order BY bno desc limit #{displayPost}, #{postNum}
+</select>
+
+<!-- 게시물 조회 -->
+<select id="view" parameterType="int" resultType="kr.board.domain.BoardVO">
+	select userid, bno, title, content, writer, regDate, viewCnt,likeCnt,dislikeCnt from tbl_board where bno = #{bno}   
+</select>
+
+<!-- 게시물 수정 -->
+<update id="modify" parameterType="kr.board.domain.BoardVO" >
+ update tbl_board
+  set
+   title = #{title},
+   content = #{content},
+   writer = #{writer}
+  where bno = #{bno}
+</update>
+
+<!-- 게시물 삭제 -->
+<delete id="delete" parameterType="int">
+  delete from tbl_board where bno = #{bno}
+</delete>
+
+<!-- 게시물 삭제 시 첨부파일 삭제(tbl_file에서 fileCheck을 N으로 변경) -->
+<update id="fileCheckChange" parameterType="int">
+	update tbl_file set fileCheck = 'N' where bno = #{bno}
+</update>
+
+<!-- 게시물 총 갯수 -->
+<select id="count" parameterType="hashMap" resultType="int">
+ select count(bno) from tbl_board
+  
+ 		<if test='searchType.equals("title")'>
+			where title like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where title like concat('%', #{keyword}, '%') or
+				content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where writer like concat('%', #{keyword}, '%')
+		</if>
+ 
+</select>
+
+<!-- 게시물 이전 페이지 -->
+<select id="viewPrev" parameterType="hashMap" resultType="int">
+   <![CDATA[
+   select bno from tbl_board where bno in 
+   	(select max(bno) from tbl_board where bno < #{bno} 
+	]]>	
+	
+		<if test='searchType.equals("title")'>	
+			and title like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			and content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			and (title like concat('%', #{keyword}, '%') or
+				content like concat('%', #{keyword}, '%')) 
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			and writer like concat('%', #{keyword}, '%')
+		</if> 	
+   	) 
+   
+</select>
+
+<!-- 게시물 다음 페이지 -->
+<select id="viewNext" parameterType="hashMap" resultType="int">
+   <![CDATA[
+   select bno from tbl_board where bno IN 
+   	( select min(bno) from tbl_board where bno > #{bno} 
+   	
+   ]]>	
+   		<if test='searchType.equals("title")'>
+			and title like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			and content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			and (title like concat('%', #{keyword}, '%') or
+				content like concat('%', #{keyword}, '%'))
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			and writer like concat('%', #{keyword}, '%')
+		</if>   	
+   	)
+
+</select>
+
+<!-- 처음 등록된 게시물 번호 확인 -->
+<select id="checkMIN" parameterType="hashMap" resultType="int">
+   select MIN(bno) AS minbno from tbl_board 
+   		<if test='searchType.equals("title")'>
+			where title like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where title like concat('%', #{keyword}, '%') or
+				content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where writer like concat('%', #{keyword}, '%')
+		</if>
+</select>
+
+<!-- 마지막으로 등록된 게시물 번호 확인 -->
+<select id="checkMAX" parameterType="hashMap" resultType="int">
+   select MAX(bno) AS maxbno from tbl_board 
+   		<if test='searchType.equals("title")'>
+			where title like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("content")'>
+			where content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("title_content")'>
+			where title like concat('%', #{keyword}, '%') or
+				content like concat('%', #{keyword}, '%')
+		</if>
+		
+		<if test='searchType.equals("writer")'>
+			where writer like concat('%', #{keyword}, '%')
+		</if>
+</select>
+
+<!-- 조회수 증가 -->
+<update id="hitno" parameterType="kr.board.domain.BoardVO" >
+ update tbl_board
+  set
+   viewCnt = #{viewCnt}
+  where bno = #{bno}
+</update>
+
+<!--  파일 업로드(신규) -->
+<insert id="insertFile" parameterType="hashMap">
+	INSERT INTO tbl_file(
+			BNO,
+			USERID,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+		    (SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'tbl_board' 
+        		AND table_schema = DATABASE( )),
+			#{userid},
+			#{org_file_name},
+			#{stored_file_name},
+			#{file_size}
+		)
+</insert>
+
+<!--  파일 업로드(게시물 수정 과정에서 새로 등록된 파일 정보) -->
+<insert id="updateFile" parameterType="hashMap">
+	INSERT INTO tbl_file(
+			BNO,
+			USERID,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+		    #{bno},
+		    #{userid},
+			#{org_file_name},
+			#{stored_file_name},
+			#{file_size}
+		)
+</insert>
+
+<!-- 첨부 파일 업로드 정보 -->
+<select id="fileList" parameterType="int" resultType="hashMap">
+	select file_no, org_file_name, stored_file_name, round(file_size/1024,1) as file_size from tbl_file
+	 where bno = #{bno} and fileCheck='Y' order by file_no asc
+</select>
+
+<!-- 첨부 파일 다운로드 정보 -->
+<select id="fileInfo" parameterType="int" resultType="kr.board.domain.BoardVO">
+	select stored_file_name, org_file_name from tbl_file where file_no = #{file_no}
+</select>
+
+<!-- 첨부 파일 삭제(tbl_file에서 레코드 삭제) -->
+<delete id="fileDelete" parameterType="int">
+	delete from tbl_file where file_no = #{file_no}
+</delete>
+
+
+<!-- 댓글 등록 -->
+<insert id="replyInsert" parameterType="kr.board.domain.BoardVO">
+	insert into tbl_reply (bno, userid, writer, replyContent) values 
+		(#{bno}, #{userid}, #{writer}, #{replyContent})
+</insert>
+
+<!-- 댓글 리스트 & 내용 보기 -->
+<select id="replyList" parameterType="int" resultType="kr.board.domain.BoardVO">
+	select replyBno, userid, writer, replyContent, regDate from tbl_reply where bno=#{bno} order by replyBno desc
+</select>
+
+<!-- 댓글 수정 -->
+<update id="replyUpdate" parameterType="hashMap">
+	update tbl_reply set replyContent = #{replyContent}, modiDate = #{modiDate} where replyBno = #{replyBno}
+</update>
+
+<!-- 게시물 조회 화면에서 개별 댓글 삭제 -->
+<delete id="replyDelete" parameterType="int">
+	delete from tbl_reply where replyBno = #{replyBno}
+</delete>
+
+<!-- 게시물 삭제 시 댓글 전체 삭제 -->
+<delete id="replyDeleteList" parameterType="int">
+	delete from tbl_reply where bno = #{bno}
+</delete>
+
+<!-- 게시물 좋아요/싫어요 갯수만 조회 -->
+<select id="listLikeCnt" parameterType="int" resultType="kr.board.domain.BoardVO">
+	select likeCnt, dislikeCnt from tbl_board where bno = #{bno}  
+</select>
+
+<!-- 게시물 좋아요/싫어요 갯수 수정 -->
+<update id="listLikeUpdate" parameterType="hashMap">
+	update tbl_board set likeCnt = #{likeCnt}, dislikeCnt = #{dislikeCnt} where bno = #{bno}
+</update>
+
+<!-- 좋아요/싫어요 조회 -->
+<select id="likeInfoList" parameterType="hashMap" resultType="kr.board.domain.BoardVO">
+	select myLikeCheck, myDislikeCheck from tbl_like where userid = #{userid} and bno = #{bno}
+</select>
+
+<!-- 좋아요/싫어요 등록 -->
+<insert id="likeInsert" parameterType="hashMap">
+	insert into tbl_like (bno, userid, myLikeCheck, myDislikeCheck, likeDate, dislikeDate) values 
+		(#{bno}, #{userid}, #{myLikeCheck}, #{myDislikeCheck}, #{likeDate}, #{dislikeDate})
+</insert>
+
+<!-- 좋아요/싫어요 수정 -->
+<update id="likeUpdate" parameterType="hashMap">
+	update tbl_like set myLikeCheck = #{myLikeCheck}, myDislikeCheck = #{myDislikeCheck}, likeDate = #{likeDate}, dislikeDate = #{dislikeDate} 
+		where userid = #{userid} and bno = #{bno}
+</update>
+
+<!-- 회원 탈퇴시 회원이 등록한 좋아요/싫어요 전체 삭제 -->
+<delete id="likeDelete" parameterType="string">
+	delete from tbl_like where userid = #{userid}
+</delete>
+
+
+<insert id ="writeForm" parameterType="kr.board.domain.BoardVO">
+	insert into tbl_test (userid, username, age) values
+		(#{uid},#{uname},#{uage})
+</insert>
+
+<select id="readForm" resultType="kr.board.domain.BoardVO">
+	select userid as uid, username as uname, age as uage from tbl_test
+</select>
+
+
+</mapper>

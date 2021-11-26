@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$("btn_write").on("click",function(){
+		
+		if($("#mwriter")).val()=="") { alert("이름을 입력하세요 1!!"); $("#mwriter").focus(); returnfalse;'}
+		if($("#mtitle")).val()=="") { alert("제목을 입력하세요 1!!"); $("#mtitle").focus(); returnfalse;'}
+		if($("#mcontent")).val()=="") { alert("이름을 입력하세요 1!!"); $("#mcontent").focus(); returnfalse;'}
+	}
+	});
+
+	
+	
+
+</script>
+</head>
+<body>
+
+
+<form name="writeForm" method="put">
+
+이름 :  <input type="text" id="mwriter" value="mwriter" placeholder="여기에 이름을 입력하세요"><br>
+제목 :  <input type="text" id="mtitle" name="mtitle" value="mtitle" placeholder="여기에 제목을 입력하세요"><br>
+내용 <br>
+<textarea cols="100" row="500" placeholder="여기에 내용을 입력하세요"></textarea>
+<!-- <input type -->
+</form>
+<button id="btn_write">여기를 클릭하세요!!!</button>
+ 
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+package kr.member.dao;
+
+
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import kr.member.domain.MemberVO;
+
+public interface MemberDAO {
+
+	 @Inject
+	 MemberDAO dao;
+	//사용자 등록
+	public void mbrInfoRegister(MemberVO vo) throws Exception;
+
+	//사용자 사진 등록
+	public void mbrPhotoRegister(Map<String, Object> map) throws Exception;
+	
+	//사용자정보 보기
+	public MemberVO mbrInfoView(String userid) throws Exception;
+}
+

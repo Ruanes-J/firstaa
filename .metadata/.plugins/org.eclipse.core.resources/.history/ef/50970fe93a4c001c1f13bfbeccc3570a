@@ -1,0 +1,37 @@
+package kr.member.dao;
+
+
+
+	
+	import java.util.Map;
+
+import javax.inject.Inject;
+import kr.member.domain.MemberVO;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+public class MemberDAOImpl implements MemberDAO {
+	@Inject
+	private SqlSession sql;
+	
+	private static String namespace = "com.board.mappers.board";
+
+	 
+		//사용자 정보 등록
+		@Override
+		public void mbrInfoRegister(MemberVO vo) throws Exception {
+			sql.insert(namespace + ".mbrInfoRegister", vo);
+		}
+		//사용자 사진 등록
+		@Override
+		public void mbrPhotoRegister(Map<String, Object> map) throws Exception {
+			sql.update(namespace + ".mbrPhotoRegister", map);
+		}
+
+		//사용자 정보 보기
+		@Override
+		public MemberVO mbrInfoView(String userid) throws Exception {
+			return sql.selectOne(namespace + ".mbrInfoView", userid); 
+		}
+}
